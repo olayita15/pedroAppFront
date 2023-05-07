@@ -20,7 +20,7 @@ export default {
   },
 
   updateEmployee(id, data) {
-    return axiosInstance.put(`/employees/${id}`, data);
+    return axiosInstance.put(`/employees/${id}`+`/`, data);
   },
 
   deleteEmployee(id) {

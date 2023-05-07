@@ -25,31 +25,51 @@
         </div>
       </div>
     </div> -->
-    <v-card :title="employee.name" subtitle="Trabajador" class="d-flex flex-column">
-      <v-img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" alt="Employee Icon" height="200"></v-img>
+    <v-card
+      :title="employee.name"
+      subtitle="Trabajador"
+      class="d-flex flex-column"
+    >
+      <v-img
+        src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png"
+        alt="Employee Icon"
+        height="200"
+      ></v-img>
       <v-card-text>
-        <ul style="list-style-type: none;">
+        <ul style="list-style-type: none">
           <li><strong>Télefono:</strong> {{ employee.phone }}</li>
-          <li>Documento: {{ employee.id_card }}</li>
-          <li>Correo: {{ employee.email }}</li>
-          <li>Oficina: {{ employee.office }}</li>
+          <li><strong>Documento:</strong> {{ employee.id_card }}</li>
+          <li><strong>Correo:</strong> {{ employee.email }}</li>
+          <li><strong>Oficina:</strong> {{ employee.office }}</li>
         </ul>
       </v-card-text>
       <v-card-actions class="d-flex flex-row justify-content-around">
-        <router-link :to="'/employees/'" style="text-decoration: none; color: inherit;"><v-btn type="button" class="btn btn-success" >Volver</v-btn></router-link>
-        <v-btn type="button" class="btn btn-warning" >Editar</v-btn>
-        <v-btn type="button" class="btn btn-danger" @click="deleteEmployee(employee.id)" >Borrar</v-btn>
+        <router-link
+          :to="'/employees/'"
+          style="text-decoration: none; color: inherit"
+          ><v-btn type="button" class="btn btn-success"
+            >Volver</v-btn
+          ></router-link
+        >
+        <router-link :to="'/employees/' + employee.id + '/edit'" style="text-decoration: none; color: inherit">
+          <v-btn type="button" class="btn btn-warning">Editar</v-btn>
+        </router-link>
+        <v-btn
+          type="button"
+          class="btn btn-danger"
+          @click="deleteEmployee(employee.id)"
+          >Borrar</v-btn
+        >
       </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { useRouter } from "vue-router";
+import { ref } from "vue";
 import Employee from "@/services/api/Employee.js";
 export default {
-
   setup() {
     const router = useRouter();
     const employee = ref({
@@ -97,7 +117,7 @@ export default {
       mounted,
     };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

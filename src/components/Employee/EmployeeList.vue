@@ -16,12 +16,23 @@
           <td>{{ employee.name }}</td>
           <td>{{ employee.email }}</td>
           <td>
-            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic mixed styles example"
+            >
               <router-link :to="'/employees/' + employee.id">
                 <v-btn type="button" class="btn btn-success">Ver</v-btn>
               </router-link>
-              <v-btn type="button" class="btn btn-warning">Editar</v-btn>
-              <v-btn type="button" class="btn btn-danger" @click="deleteEmployee(employee)">Borrar</v-btn>
+              <router-link :to="'/employees/' + employee.id + '/edit'">
+                <v-btn type="button" class="btn btn-warning">Editar</v-btn>
+              </router-link>
+              <v-btn
+                type="button"
+                class="btn btn-danger"
+                @click="deleteEmployee(employee)"
+                >Borrar</v-btn
+              >
             </div>
           </td>
         </tr>
@@ -35,19 +46,19 @@ export default {
   props: {
     employees: {
       type: Array,
-      required: true
+      required: true,
     },
     deleteFunction: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     deleteEmployee(employee) {
       this.deleteFunction(employee.id);
-      this.$emit('employee-deleted', employee.id);
-      alert('El trabajador se ha borrado correctamente');
-    }
-  }
+      this.$emit("employee-deleted", employee.id);
+      alert("El trabajador se ha borrado correctamente");
+    },
+  },
 };
 </script>

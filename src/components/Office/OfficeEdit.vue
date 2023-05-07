@@ -2,11 +2,12 @@
   <div class="container">
     <v-form class="" validate-on="submit" @submit.prevent="submitForm">
       <v-text-field v-model="office.name" label="Nombre"></v-text-field>
+
       <v-text-field v-model="office.phone" label="Télefono"></v-text-field>
 
       <v-text-field v-model="office.city" label="Ciudad"></v-text-field>
 
-      <v-btn type="submit" class="btn btn-primary">Crear</v-btn>
+      <v-btn type="submit" class="btn btn-primary">Guardar</v-btn>
     </v-form>
   </div>
 </template>
@@ -18,17 +19,13 @@ import Office from "@/services/api/Office.js";
 export default {
   setup() {
     const router = useRouter();
-    const office = ref({
-      name: "",
-      phone: "",
-      city: "",
-    });
+    const office = ref(null);
 
     const submitForm = () => {
-      Office.createOffice(office.value)
+      Office.updateOffice(office.value.id, office.value)
         .then((response) => {
           console.log(response.data);
-          alert("Oficina Creada");
+          alert("Oficina actualizada");
           router.push({ name: "Offices" });
         })
         .catch((error) => {
@@ -36,6 +33,23 @@ export default {
           console.error(error);
         });
     };
+
+    const getOffice = (id) => {
+      Office.getOffice(id)
+        .then((response) => {
+          office.value = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    const mounted = () => {
+      const id = parseInt(router.currentRoute.value.params.id);
+      getOffice(id);
+    };
+
+    mounted();
 
     return {
       office,
